@@ -17,7 +17,7 @@ import (
 
 // Puf is the physically unclonable function provided by FPGA
 type Puf struct {
-	Id []byte
+	id []byte
 }
 
 // wallet stores private and public keys
@@ -122,4 +122,11 @@ func createWallet(p Puf) *wallet {
 	w := wallet{*private, public}
 
 	return &w
+}
+
+//  CreateTestPuf func generates a Puf for testing
+func CreateTestPuf() *Puf {
+	// suppose puf id length is 256
+	randContent := make([]byte, 256)
+	return Puf{randContent[:]}
 }
