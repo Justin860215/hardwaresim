@@ -125,7 +125,7 @@ func createWallet(p Puf) *wallet {
 }
 
 //  CreateTestPuf func generates a Puf for testing
-func CreateTestPuf() *Puf {
+func CreateTestPuf() Puf {
 	// suppose puf id length is 256
 	randContent := make([]byte, 256)
 	return Puf{randContent[:]}
