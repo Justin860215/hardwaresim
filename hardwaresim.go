@@ -1,4 +1,4 @@
-package hardwarewallet
+package hardwaresim
 
 import (
 	"bytes"
@@ -17,7 +17,7 @@ import (
 
 // Puf is the physically unclonable function provided by FPGA
 type Puf struct {
-	id []byte
+	Id []byte
 }
 
 // wallet stores private and public keys

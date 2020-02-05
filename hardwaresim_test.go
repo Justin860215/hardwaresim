@@ -1,4 +1,4 @@
-package hardwarewallet
+package hardwaresim
 
 import (
 	"crypto/sha256"
