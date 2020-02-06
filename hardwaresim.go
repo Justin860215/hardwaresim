@@ -72,13 +72,13 @@ func HashString(content []byte) (hashstring string, err error) {
 // Sign func generates a signature on a string.
 func (p Puf) Sign(hashstring string) (signature []byte, pubKey []byte, err error) {
 	w := createWallet(p)
+	pubKey = w.PublicKey
 	hash := HashStringToHash(hashstring)
 	r, s, err := ecdsa.Sign(rand.Reader, &w.PrivateKey, hash)
 	if err != nil {
 		return nil, err
 	}
 	signature = append(r.Bytes(), s.Bytes()...)
-	pubKey = w.PublicKey
 	return
 }
 
