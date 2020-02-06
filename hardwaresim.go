@@ -76,7 +76,7 @@ func (p Puf) Sign(hashstring string) (signature []byte, pubKey []byte, err error
 	hash := HashStringToHash(hashstring)
 	r, s, err := ecdsa.Sign(rand.Reader, &w.PrivateKey, hash)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	signature = append(r.Bytes(), s.Bytes()...)
 	return
