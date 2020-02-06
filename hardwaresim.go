@@ -78,7 +78,7 @@ func (p Puf) Sign(hashstring string) (signature []byte, pubKey []byte, err error
 		return nil, err
 	}
 	signature = append(r.Bytes(), s.Bytes()...)
-	pubKey = &w.PublicKey
+	pubKey = w.PublicKey
 	return
 }
 
