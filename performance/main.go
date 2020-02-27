@@ -50,20 +50,20 @@ func EncryptAndDecryptPerformance() {
 }
 
 func SignAndVerifyPerformance() {
-	p := randPUF()
+	p := hardwaresim.CreateTestPuf()
 	content := randContentHelper(1000000)
 	hashString, _ := hardwaresim.HashString(content)
 
 	t1 := time.Now() // get current time
     //logic handlers
     for i := 0; i < 1000; i++ {
-        _, _ = p.Sign(hashString)
+        _, _, _ = p.Sign(hashString)
     }
 
 	elapsed := time.Since(t1)
     fmt.Println("Sign elapsed: ", elapsed)
 
-	sig, _ := p.Sign(hashString)
+	sig, _, _ := p.Sign(hashString)
 	public, _ := p.CreatePublicKey()
 
 	t2 := time.Now() // get current time
@@ -87,13 +87,4 @@ func randContentHelper(size int) (randContent []byte) {
 	mathrand.Read(randContentSlice)
 	randContent = randContentSlice[:]
 	return
-}
-
-// randPUF func generates a Puf for testing
-func randPUF() hardwaresim.Puf {
-	mathrand.Seed(time.Now().UnixNano())
-	// suppose puf id length is 256
-	randContent := make([]byte, 256)
-	mathrand.Read(randContent)
-	return hardwaresim.Puf{randContent[:]}
 }
