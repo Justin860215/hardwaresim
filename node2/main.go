@@ -62,7 +62,9 @@ func main(){
 			encode := res.Serialize()
 			encodeString := fmt.Sprintf("%x", encode[:])
 			fmt.Println(encodeString)
-			_ = blockchain.WriteByHashKey(hashString, encodeString)
+			if err := blockchain.WriteByHashKey(hashString, encodeString); err != nil {
+				fmt.Println(err)
+			}
 			fmt.Println(hashString)
 			fmt.Fprintf(conn, hashString + "\n")
 		}
@@ -70,7 +72,7 @@ func main(){
 		// check once at the end to see if any errors
 		// were encountered (the Scan() method will
 		// return false as soon as an error is encountered) 
-		if err := consolescanner.Err(); err != nil {
+		if err = consolescanner.Err(); err != nil {
 			 fmt.Println(err)
 			 os.Exit(1)
 		}
