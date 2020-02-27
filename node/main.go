@@ -52,10 +52,10 @@ func main(){
 
 func handleConnection(conn net.Conn) {
 	hashString, _ := bufio.NewReader(conn).ReadString('\n')
-	original := strings.Split(hashString, '\n')
+	original := strings.Replace(hashString, "\n", "", -1)
 
 	blockchain, _ := brizochain.NewBrizoChain()
-	msgString, err := blockchain.ReadDataFromHashDict(original[0])
+	msgString, err := blockchain.ReadDataFromHashDict(original)
 	if err != nil {
 		log.Panic(err)
 	}
