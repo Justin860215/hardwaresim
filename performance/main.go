@@ -1,10 +1,7 @@
 package main
 
 import (
-	"crypto/sha256"
 	mathrand "math/rand"
-	"reflect"
-	"testing"
 	"time"
 	"fmt"
 	hardwaresim "github.com/ntu-brizo/hardwaresim"
@@ -21,9 +18,9 @@ func HashStringPerformance() {
 	t1 := time.Now() // get current time
     //logic handlers
     for i := 0; i < 1000; i++ {
-        hashString, _ := HashString(content)
+        hashString, _ := hardwaresim.HashString(content)
 
-		_ = HashStringToHash(hashString)
+		_ = hardwaresim.HashStringToHash(hashString)
     }
 
 	elapsed := time.Since(t1)
@@ -36,17 +33,17 @@ func EncryptAndDecryptPerformance() {
 	t1 := time.Now() // get current time
     //logic handlers
     for i := 0; i < 1000; i++ {
-        _, _, _ = Encrypt(origContent)
+        _, _, _ = hardwaresim.Encrypt(origContent)
     }
 	t1elapsed := time.Since(t1)
 	fmt.Println("Encrypt elapsed: ", t1elapsed)
 
-	crypted, key, _ := Encrypt(origContent)
+	crypted, key, _ := hardwaresim.Encrypt(origContent)
 
 	t2 := time.Now() // get current time
     //logic handlers
     for i := 0; i < 1000; i++ {
-        decrypted, _ := Decrypt(key, crypted)
+        decrypted, _ := hardwaresim.Decrypt(key, crypted)
     }
 	t2elapsed := time.Since(t2)
 	fmt.Println("Decrypt elapsed: ", t2elapsed)
@@ -55,7 +52,7 @@ func EncryptAndDecryptPerformance() {
 func SignAndVerifyPerformance() {
 	p := randPUF()
 	content := randContentHelper(1000000)
-	hashString, _ := HashString(content)
+	hashString, _ := hardwaresim.HashString(content)
 
 	t1 := time.Now() // get current time
     //logic handlers
@@ -72,7 +69,7 @@ func SignAndVerifyPerformance() {
 	t2 := time.Now() // get current time
     //logic handlers
     for i := 0; i < 1000; i++ {
-        _, _ = Verify(hashString, sig, public)
+        _, _ = hardwaresim.Verify(hashString, sig, public)
     }
 	t2elapsed := time.Since(t2)
 	fmt.Println("Verify elapsed: ", t2elapsed)
@@ -93,10 +90,10 @@ func randContentHelper(size int) (randContent []byte) {
 }
 
 // randPUF func generates a Puf for testing
-func randPUF() Puf {
+func randPUF() hardwaresim.Puf {
 	mathrand.Seed(time.Now().UnixNano())
 	// suppose puf id length is 256
 	randContent := make([]byte, 256)
 	mathrand.Read(randContent)
-	return Puf{randContent[:]}
+	return hardwaresim.Puf{randContent[:]}
 }
