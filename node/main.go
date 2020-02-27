@@ -51,7 +51,8 @@ func main(){
 
 func handleConnection(conn net.Conn) {
 	hashString, _ := bufio.NewReader(conn).ReadString('\n')
-	log.Println(hashString)
+	log.Println(hashString[0])
+	log.Println(hashString[len(hashString)-1])
 
 	blockchain, _ := brizochain.NewBrizoChain()
 	msgString, err := blockchain.ReadDataFromHashDict(hashString[0 : len(hashString)-1])
@@ -61,13 +62,6 @@ func handleConnection(conn net.Conn) {
 	log.Println(msgString)
 
 	msg := DeserializeBlock(hardwaresim.HashStringToHash(msgString))
-	fmt.Println("================================")
-    fmt.Printf("Encrypt content: %x\n",msg.E)
-    fmt.Printf("AES key: %x\n",msg.K)
-    fmt.Printf("Pub key: %x\n",msg.P)
-    fmt.Printf("Hash: %x\n",msg.H)
-    fmt.Printf("Sig: %x\n",msg.S)
-    fmt.Println("================================")
 
 	valid, _ := hardwaresim.Verify(hashString, msg.S, msg.P)
 	log.Println(strconv.FormatBool(valid))
