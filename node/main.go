@@ -54,7 +54,7 @@ func handleConnection(conn net.Conn) {
 	log.Println(hashString)
 
 	blockchain, _ := brizochain.NewBrizoChain()
-	msgString, err := blockchain.ReadDataFromHashDict(hashString[0 : len(str)-1])
+	msgString, err := blockchain.ReadDataFromHashDict(hashString[0 : len(hashString)-1])
 	if err != nil {
 		log.Panic(err)
 	}
