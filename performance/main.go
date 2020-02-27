@@ -43,7 +43,7 @@ func EncryptAndDecryptPerformance() {
 	t2 := time.Now() // get current time
     //logic handlers
     for i := 0; i < 1000; i++ {
-        decrypted, _ := hardwaresim.Decrypt(key, crypted)
+        _, _ = hardwaresim.Decrypt(key, crypted)
     }
 	t2elapsed := time.Since(t2)
 	fmt.Println("Decrypt elapsed: ", t2elapsed)
