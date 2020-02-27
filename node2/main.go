@@ -61,7 +61,7 @@ func main(){
 			}
 			encode := res.Serialize()
 			encodeString := fmt.Sprintf("%x", encode[:])
-			fmt.Println(msgString)
+			fmt.Println(encodeString)
 			_ = blockchain.WriteByHashKey(hashString, encodeString)
 			fmt.Println(hashString)
 			fmt.Fprintf(conn, hashString + "\n")
