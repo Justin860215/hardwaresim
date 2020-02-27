@@ -34,50 +34,10 @@ type Block1 struct {
 }
 
 func main(){
-	blockchain, _ := brizochain.NewBrizoChain()
-	conn, _ := net.Dial("tcp", "172.20.10.5:8080")
-	puf := hardwaresim.CreateTestPuf()
 	listener, err := net.Listen("tcp", ":8081")
     if err != nil {
         log.Fatal("tcp server listener error:", err)
 	}
-	go func() { // goroutine1
-		consolescanner := bufio.NewScanner(os.Stdin)
-		// by default, bufio.Scanner scans newline-separated lines
-		for consolescanner.Scan() {
-			original := consolescanner.Text()
-			content := []byte(original)
-			encryptContent, key, _ := hardwaresim.Encrypt(content)
-			
-			hashString, _ := hardwaresim.HashString(encryptContent)
-			hash := hardwaresim.HashStringToHash(hashString)
-			
-			
-			sig, pubKey, _ := puf.Sign(hashString)
-
-			// todo: ENCODE 4 of them together
-			res := &Block1{
-				E: encryptContent,
-				K: key,
-				H: hash,
-				P: pubKey,
-				S: sig,
-			}
-			encode := res.Serialize()
-			encodeString := fmt.Sprintf("%x", encode[:])
-			_ = blockchain.WriteByHashKey(hashString, encodeString)
-			fmt.Println(hashString)
-			conn.Write(append(hash,0x0d))
-		}
-	
-		// check once at the end to see if any errors
-		// were encountered (the Scan() method will
-		// return false as soon as an error is encountered) 
-		if err := consolescanner.Err(); err != nil {
-			 fmt.Println(err)
-			 os.Exit(1)
-		}
-	}()
 	
 	for {
         conn2, err := listener.Accept()
@@ -93,7 +53,7 @@ func main(){
 func handleConnection(conn net.Conn) {
 	hashString, _ := bufio.NewReader(conn).ReadString('\n')
 	log.Println(hashString)
-	
+
 	blockchain, _ := brizochain.NewBrizoChain()
     msgString, _ := blockchain.ReadDataFromHashDict(hashString)
 

@@ -37,10 +37,6 @@ func main(){
 	blockchain, _ := brizochain.NewBrizoChain()
 	conn, _ := net.Dial("tcp", "172.20.10.8:8081")
 	puf := hardwaresim.CreateTestPuf()
-	listener, err := net.Listen("tcp", ":8080")
-    if err != nil {
-        log.Fatal("tcp server listener error:", err)
-	}
 	go func() { // goroutine1
 		consolescanner := bufio.NewScanner(os.Stdin)
 		// by default, bufio.Scanner scans newline-separated lines
@@ -78,15 +74,6 @@ func main(){
 			 os.Exit(1)
 		}
 	}()
-	
-	for {
-        conn2, err := listener.Accept()
-        if err != nil {
-            log.Fatal("tcp server accept error", err)
-        }
-
-        go handleConnection(conn2)
-    }
 }
 
 
