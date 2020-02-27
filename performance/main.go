@@ -83,7 +83,7 @@ func SignAndVerifyPerformance() {
 func randContentHelper(size int) (randContent []byte) {
 	mathrand.Seed(time.Now().UnixNano())
 	// 1byte to {size} random content
-	randContentSlice := make([]byte, mathrand.Intn(size)+1)
+	randContentSlice := make([]byte, size)
 	mathrand.Read(randContentSlice)
 	randContent = randContentSlice[:]
 	return
