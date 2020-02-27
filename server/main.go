@@ -81,8 +81,7 @@ func handleConnection(conn net.Conn) {
 		clientAddr := conn.RemoteAddr().String()
 		response := fmt.Sprintf(bufferString + " from " + clientAddr + "\n")
 		log.Println(response)
-		fmt.Println(strconv.FormatBool(valid))
-		conn.Write(append([]byte(strconv.FormatBool(valid)),0x0d))
+		conn.Write([]byte(strconv.FormatBool(valid)+"\r"))
 
 	} else if original[0] == "D"{
 		encryptContent := hardwaresim.HashStringToHash(original[1])

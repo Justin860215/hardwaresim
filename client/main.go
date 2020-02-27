@@ -43,7 +43,7 @@ func convert( b []byte ) string {
 
 func main() {
 
-  conn, _ := net.Dial("tcp", "127.0.0.1:8080")
+  conn, _ := net.Dial("tcp", "172.20.10.2:8080")
   for { 
     // read in input from stdin
     
@@ -70,9 +70,9 @@ func main() {
     // send to socket
     fmt.Fprintf(conn, text3 + "\n")
     // listen for reply
-    message3, _ := bufio.NewReader(conn).ReadBytes('\r')
+    message3, _ := bufio.NewReader(conn).ReadString('\r')
     fmt.Println("================================")
-    fmt.Printf("Valid: %s", message3)
+    fmt.Println(message3)
     fmt.Println("================================")
 
     fmt.Print("Send(D)> ")
