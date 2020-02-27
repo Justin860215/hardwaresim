@@ -63,7 +63,7 @@ func main(){
 			encodeString := fmt.Sprintf("%x", encode[:])
 			fmt.Println(encodeString)
 			_ = blockchain.WriteByHashKey(hashString, encodeString)
-			fmt.Println(hashString)
+			fmt.Println(len(hashString))
 			fmt.Fprintf(conn, hashString + "\n")
 		}
 	
