@@ -8,13 +8,13 @@ import (
 )
 
 func main(){
-	HashStringPerformance()
-	EncryptAndDecryptPerformance()
-	SignAndVerifyPerformance()
+	content := randContentHelper(1000000)
+	HashStringPerformance(content)
+	EncryptAndDecryptPerformance(content)
+	SignAndVerifyPerformance(content)
 }
 
-func HashStringPerformance() {
-	content := randContentHelper(1000000)
+func HashStringPerformance(content []byte) {
 	t1 := time.Now() // get current time
     //logic handlers
     for i := 0; i < 1000; i++ {
@@ -27,8 +27,7 @@ func HashStringPerformance() {
     fmt.Println("Hash elapsed: ", elapsed)
 }
 
-func EncryptAndDecryptPerformance() {
-	origContent := randContentHelper(1000000)
+func EncryptAndDecryptPerformance(origContent []byte) {
 	
 	t1 := time.Now() // get current time
     //logic handlers
@@ -49,9 +48,8 @@ func EncryptAndDecryptPerformance() {
 	fmt.Println("Decrypt elapsed: ", t2elapsed)
 }
 
-func SignAndVerifyPerformance() {
+func SignAndVerifyPerformance(content []byte) {
 	p := hardwaresim.CreateTestPuf()
-	content := randContentHelper(1000000)
 	hashString, _ := hardwaresim.HashString(content)
 
 	t1 := time.Now() // get current time
