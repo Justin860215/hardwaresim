@@ -93,7 +93,8 @@ func main(){
 func handleConnection(conn net.Conn) {
 	blockchain, _ := brizochain.NewBrizoChain()
 	hashString, _ := bufio.NewReader(conn).ReadString('\n')
-	fmt.Println(hardwaresim.HashStringToHash(hashString))
+	resp := fmt.Sprintf(hardwaresim.HashStringToHash(hashString))
+	log.Println(resp)
 
     msgString, _ := blockchain.ReadDataFromHashDict(hashString)
 
@@ -114,7 +115,7 @@ func handleConnection(conn net.Conn) {
 
 	clientAddr := conn.RemoteAddr().String()
 	response := fmt.Sprintf(contentString + " from " + clientAddr + "\n")
-	fmt.Println(response)
+	log.Println(response)
 		
     handleConnection(conn)
 }
