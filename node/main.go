@@ -65,7 +65,7 @@ func main(){
 			}
 			encode := res.Serialize()
 			encodeString := fmt.Sprintf("%x", encode[:])
-			_ = brizoChain.WriteByHashKey(hashString, encodeString)
+			_ = blockchain.WriteByHashKey(hashString, encodeString)
 			conn.Write(append(hash,0x0d))
 		}
 	
@@ -92,7 +92,7 @@ func main(){
 func handleConnection(conn net.Conn) {
     hashString, _ := bufio.NewReader(conn).ReadString('\n')
 
-    msgString, _ := brizoChain.ReadDataFromHashDict(hashString)
+    msgString, _ := blockchain.ReadDataFromHashDict(hashString)
 
 	msg := DeserializeBlock(hardwaresim.HashStringToHash(msgString))
 	fmt.Println("================================")
