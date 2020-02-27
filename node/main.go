@@ -90,6 +90,7 @@ func main(){
 
 
 func handleConnection(conn net.Conn) {
+	blockchain, _ := brizochain.NewBrizoChain()
     hashString, _ := bufio.NewReader(conn).ReadString('\n')
 
     msgString, _ := blockchain.ReadDataFromHashDict(hashString)
