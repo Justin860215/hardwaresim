@@ -51,20 +51,18 @@ func main(){
 
 
 func handleConnection(conn net.Conn) {
-	msg, _ := bufio.NewReader(conn).ReadString('\n')
-	original := strings.Replace(msg, "\n", "", -1)
-	original = strings.Split(original," ")
-	log.Println(original[0])
-	log.Println(original[1])
+	hashString, _ := bufio.NewReader(conn).ReadString('\n')
+	original := strings.Replace(hashString, "\n", "", -1)
+	log.Println(original)
 	
 	blockchain, _ := brizochain.NewBrizoChain()
 	msgString, err := blockchain.ReadDataFromHashDict(original)
 	if err != nil {
 		log.Panic(err)
 	}
-	//log.Println(msgString)
+	log.Println(msgString)
 
-	msg := DeserializeBlock(hardwaresim.HashStringToHash(original[1]))
+	msg := DeserializeBlock(hardwaresim.HashStringToHash(msgString))
 
 	valid, _ := hardwaresim.Verify(hashString, msg.S, msg.P)
 	log.Println(strconv.FormatBool(valid))
