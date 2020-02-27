@@ -66,7 +66,7 @@ func main(){
 				fmt.Println(err)
 			}
 			fmt.Println(hashString)
-			fmt.Fprintf(conn, hashString + "\n")
+			fmt.Fprintf(conn, hashString + " " + encodeString + "\n")
 		}
 	
 		// check once at the end to see if any errors
