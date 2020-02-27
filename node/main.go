@@ -5,6 +5,7 @@ import (
 	"bufio"
 	"net"
 	"strconv"
+	"strings"
 	"encoding/gob"
 	"bytes"
 	"log"
@@ -51,11 +52,10 @@ func main(){
 
 func handleConnection(conn net.Conn) {
 	hashString, _ := bufio.NewReader(conn).ReadString('\n')
-	log.Println(hashString[0])
-	log.Println(hashString[len(hashString)-1])
+	original := strings.Split(hashString, '\n')
 
 	blockchain, _ := brizochain.NewBrizoChain()
-	msgString, err := blockchain.ReadDataFromHashDict(hashString[0 : len(hashString)-1])
+	msgString, err := blockchain.ReadDataFromHashDict(original[0])
 	if err != nil {
 		log.Panic(err)
 	}
