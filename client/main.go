@@ -33,17 +33,10 @@ func DeserializeBlock(d []byte) *Block1 {
 	return &block
 }
 
-func convert( b []byte ) string {
-  s := make([]string,len(b))
-  for i := range b {
-      s[i] = strconv.Itoa(int(b[i]))
-  }
-  return strings.Join(s,",")
-}
 
 func main() {
 
-  conn, _ := net.Dial("tcp", "172.20.10.2:8080")
+  conn, _ := net.Dial("tcp", "172.20.10.5:8080")
   for { 
     // read in input from stdin
     
