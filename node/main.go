@@ -112,6 +112,7 @@ func handleConnection(conn net.Conn) {
 
 	clientAddr := conn.RemoteAddr().String()
 	response := fmt.Sprintf(contentString + " from " + clientAddr + "\n")
+	fmt.Println(response)
 		
     handleConnection(conn)
 }
