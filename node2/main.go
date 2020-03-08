@@ -35,7 +35,7 @@ type Block1 struct {
 
 func main(){
 	blockchain, _ := brizochain.NewBrizoChain()
-	conn, _ := net.Dial("tcp", "172.20.10.8:8081")
+	conn, _ := net.Dial("tcp", "172.20.10.5:8081")
 	puf := hardwaresim.CreateTestPuf()
 	for {
 		consolescanner := bufio.NewScanner(os.Stdin)
