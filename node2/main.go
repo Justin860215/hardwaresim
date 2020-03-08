@@ -35,7 +35,7 @@ type Block1 struct {
 
 func main(){
 	blockchain, _ := brizochain.NewBrizoChain()
-	conn, _ := net.Dial("tcp", "172.20.10.8:8081")
+	conn, _ := net.Dial("tcp", "172.20.10.5:8081")
 	puf := hardwaresim.CreateTestPuf()
 	for {
 		consolescanner := bufio.NewScanner(os.Stdin)
@@ -46,7 +46,7 @@ func main(){
 			encryptContent, key, _ := hardwaresim.Encrypt(content)
 			
 			hashString, _ := hardwaresim.HashString(encryptContent)
-			hash := hardwaresim.HashStringToHash(hashString)
+			//hash := hardwaresim.HashStringToHash(hashString)
 			
 			
 			sig, pubKey, _ := puf.Sign(hashString)
@@ -55,7 +55,6 @@ func main(){
 			res := &Block1{
 				E: encryptContent,
 				K: key,
-				H: hash,
 				P: pubKey,
 				S: sig,
 			}
@@ -66,7 +65,7 @@ func main(){
 				fmt.Println(err)
 			}
 			fmt.Println(hashString)
-			fmt.Fprintf(conn, hashString + " " + encodeString + "\n")
+			fmt.Fprintf(conn, hashString + "\n")
 		}
 	
 		// check once at the end to see if any errors
@@ -93,7 +92,6 @@ func handleConnection(conn net.Conn) {
     fmt.Printf("Encrypt content: %x\n",msg.E)
     fmt.Printf("AES key: %x\n",msg.K)
     fmt.Printf("Pub key: %x\n",msg.P)
-    fmt.Printf("Hash: %x\n",msg.H)
     fmt.Printf("Sig: %x\n",msg.S)
     fmt.Println("================================")
 
