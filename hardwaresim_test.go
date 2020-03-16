@@ -6,6 +6,7 @@ import (
 	"reflect"
 	"testing"
 	"time"
+	"fmt"
 )
 
 func TestHashStringAndReverse(t *testing.T) {
@@ -46,14 +47,16 @@ func TestSignAndVerify(t *testing.T) {
 	p := randPUF()
 	content := randContentHelper(1000000)
 	hashString, _ := HashString(content)
-	sig, err := p.Sign(hashString)
+	sig, public, err := p.Sign(hashString)
+	fmt.Println(sig)
 	if err != nil {
 		t.Fatal("got errors: ", err)
 	}
-	public, err := p.CreatePublicKey()
+	//public, err := p.CreatePublicKey()
+	/*
 	if err != nil {
 		t.Fatal("got errors: ", err)
-	}
+	}*/
 	success, err := Verify(hashString, sig, public)
 	if err != nil {
 		t.Fatal("got errors: ", err)
